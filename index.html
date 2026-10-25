@@ -1,163 +1,1348 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHARGE & CHILL MART</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#f8f5ef}
-header{background:#0A0A0A;color:#FFD60A;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
-.hero-slider{position:relative;height:420px;overflow:hidden;background:#000}
-.slide{position:absolute;inset:0;opacity:0;transition:1s;display:flex;align-items:center;padding:20px}
-.slide.active{opacity:1}
-.slide img{width:55%;height:90%;object-fit:cover;border-radius:16px}
-.slide-text{color:#fff;padding:18px;flex:1}
-.slide-text h2{font-size:32px;line-height:0.9;color:#FFD60A}
-.badge{background:#FFD60A;color:#111;padding:4px 10px;border-radius:20px;font-weight:800;font-size:11px;display:inline-block;margin:8px 0}
-.btn{background:#FFD60A;color:#111;border:none;padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer;margin-top:8px}
-.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
-.dot{width:8px;height:8px;background:#ffffff66;border-radius:50%;cursor:pointer}
-.dot.active{background:#FFD60A}
-.price-box{margin:12px;background:#fff;border-radius:14px;padding:12px;box-shadow:0 4px 20px #0001}
-.row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed #eee}
-.tag{background:#FFD60A;padding:3px 10px;border-radius:20px;font-weight:800;font-size:12px}
-.jm-top{background:#002080;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
-.jm-cart-btn{background:#FFD60A;color:#002080;padding:6px 14px;border-radius:20px;cursor:pointer;font-weight:800}
-.jm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
-.jm-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 4px #0001}
-.jm-card img{width:100%;height:130px;object-fit:cover}
-.jm-info{padding:8px}.jm-info p{font-size:13px;font-weight:600;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.jm-info b{color:#002080}
-.jm-card button{width:92%;margin:0 4% 10px;background:#FFD60A;border:none;padding:9px;border-radius:6px;font-weight:900;cursor:pointer;color:#002080}
-.jm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99998}.jm-overlay.show{display:block}
-.jm-drawer{position:fixed;top:0;right:-100%;width:90%;max-width:380px;height:100vh;background:#fff;z-index:99999;transition:0.35s ease;display:flex;flex-direction:column}.jm-drawer.open{right:0}
-.jm-drawer-top{display:flex;justify-content:space-between;padding:16px;border-bottom:1px solid #eee}
-#jm-list{flex:1;overflow-y:auto;padding:10px}
-.jm-row{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0;align-items:center}
-.jm-row img{width:60px;height:60px;border-radius:8px;object-fit:cover}.jm-row-info{flex:1}.jm-row-info p{font-size:13px;margin:0;font-weight:600}
-.jm-qty{display:flex;gap:8px;align-items:center;margin-top:4px}.jm-qty button{width:26px;height:26px;border-radius:50%;border:1px solid #ccc;background:#fff;cursor:pointer;font-weight:800}
-.jm-sum-row{display:flex;justify-content:space-between;margin:4px 0}.jm-sum-row.total{font-size:18px;border-top:1px dashed #ccc;padding-top:8px;margin-top:8px}
-.jm-checkout{display:block;text-align:center;padding:14px;border-radius:8px;text-decoration:none;font-weight:900;margin-top:12px}
-</style>
-</head>
-<body>
-<header><div style="text-align: center;">⚡ <b>CHARGE & CHILL MART</b><br><small style="font-size:10px">IVC Camp service 24/7</small></div><div style="display:flex;gap:10px;align-items:center"><div>6593488912</div><div class="jm-cart-btn" style="font-size:12px" onclick="jmOpen()">🛒 <span id="jm-count">0</span></div></div></header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CHARGE & CHILL MART</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Inter, sans-serif;
+      }
+      body {
+        background: #f8f5ef;
+      }
+      header {
+        background: #0a0a0a;
+        color: #ffd60a;
+        padding: 14px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+      }
+      .hero-slider {
+        position: relative;
+        height: 420px;
+        overflow: hidden;
+        background: #000;
+      }
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: 1s;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+      }
+      .slide.active {
+        opacity: 1;
+      }
+      .slide img {
+        width: 55%;
+        height: 90%;
+        object-fit: cover;
+        border-radius: 16px;
+      }
+      .slide-text {
+        color: #fff;
+        padding: 18px;
+        flex: 1;
+      }
+      .slide-text h2 {
+        font-size: 32px;
+        line-height: 0.9;
+        color: #ffd60a;
+      }
+      .badge {
+        background: #ffd60a;
+        color: #111;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 800;
+        font-size: 11px;
+        display: inline-block;
+        margin: 8px 0;
+      }
+      .btn {
+        background: #ffd60a;
+        color: #111;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-weight: 800;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+      .dots {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 6px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        background: #ffffff66;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .dot.active {
+        background: #ffd60a;
+      }
+      .price-box {
+        margin: 12px;
+        background: #fff;
+        border-radius: 14px;
+        padding: 12px;
+        box-shadow: 0 4px 20px #0001;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        border-bottom: 1px dashed #eee;
+      }
+      .tag {
+        background: #ffd60a;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-weight: 800;
+        font-size: 12px;
+      }
+      .jm-top {
+        background: #002080;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+      }
+      .jm-cart-btn {
+        background: #ffd60a;
+        color: #002080;
+        padding: 6px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 800;
+      }
+      .jm-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 10px;
+      }
+      .jm-card {
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px #0001;
+      }
+      .jm-card img {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+      }
+      .jm-info {
+        padding: 8px;
+      }
+      .jm-info p {
+        font-size: 13px;
+        font-weight: 600;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .jm-info b {
+        color: #002080;
+      }
+      .jm-card button {
+        width: 92%;
+        margin: 0 4% 10px;
+        background: #ffd60a;
+        border: none;
+        padding: 9px;
+        border-radius: 6px;
+        font-weight: 900;
+        cursor: pointer;
+        color: #002080;
+      }
+      .jm-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99998;
+      }
+      .jm-overlay.show {
+        display: block;
+      }
+      .jm-drawer {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 90%;
+        max-width: 380px;
+        height: 100vh;
+        background: #fff;
+        z-index: 99999;
+        transition: 0.35s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .jm-drawer.open {
+        right: 0;
+      }
+      .jm-drawer-top {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px;
+        border-bottom: 1px solid #eee;
+      }
+      #jm-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+      }
+      .jm-row {
+        display: flex;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+        align-items: center;
+      }
+      .jm-row img {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+      .jm-row-info {
+        flex: 1;
+      }
+      .jm-row-info p {
+        font-size: 13px;
+        margin: 0;
+        font-weight: 600;
+      }
+      .jm-qty {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-top: 4px;
+      }
+      .jm-qty button {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        background: #fff;
+        cursor: pointer;
+        font-weight: 800;
+      }
+      .jm-sum-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0;
+      }
+      .jm-sum-row.total {
+        font-size: 18px;
+        border-top: 1px dashed #ccc;
+        padding-top: 8px;
+        margin-top: 8px;
+      }
+      .jm-checkout {
+        display: block;
+        text-align: center;
+        padding: 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 900;
+        margin-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div style="text-align: center">
+        ⚡ <b>CHARGE & CHILL MART</b><br /><small style="font-size: 10px"
+          >IVC Camp service 24/7</small
+        >
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center">
+        <div>6593488912</div>
+        <div class="jm-cart-btn" style="display: flex;  font-size: 12px" onclick="jmOpen()">
+          <span id="jm-count">0</span><p>🛒</p> 
+        </div>
+      </div>
+    </header>
 
-<div class="hero-slider" id="slider">
-  <div class="slide active" style="background:linear-gradient(90deg,#111 40%,#FFD60A)"><img src="./images/avaterc.jpeg" alt="avaterc" style="height: 400px;"><div class="slide-text"><span class="badge">Power Boost 🤍</span><h2>Power Up<br>With Fastest<br>Charger!</h2><p style="font-size:12px;margin:8px 0">Same guy in Real Madrid white jersey serving brothers at IVC Camp!</p><button class="btn"><a style="text-decoration: none; color: black;" href="#shopnow">⚡ Charge Now</a></button></div></div>
-  <div class="slide" style="background:linear-gradient(90deg,#222 40%,#FFD60A)"><img src="./images/avater.jpg" alt="avater"><div class="slide-text"><span class="badge">IVC CAMP • 24/7</span><div style="display: flex; flex-direction: column; gap: 2rem;"><h2>Only Brothers<br>Chill Spot</h2><p style="font-size:12px;margin:8px 0">Phone charging, cold drinks, chin-chin, plantain chips, crunchy Kuli Kuli</p></div><button class="btn"><a style="text-decoration: none; color: black;" href="#chargenow">🛒 Shop Now</a></button></div></div>
-  <div class="slide" style="background:linear-gradient(90deg,#FFD60A 40%,#111)"><img src="./images/ceo.jpeg" alt="ceo" style="height: 400px;"><div class="slide-text" style="color:#111"><span class="badge" style="background:#111;color:#FFD60A">Fastest Delivery</span><h2 style="color:#111">Fastest<br>Delivery To your door step</h2><p style="font-size:12px;margin:8px 0;color:#111">Charge & Chill Mart CEO — we deliver anywhere in camp!</p><button class="btn" style="background:#111;color:#FFD60A"><a style="text-decoration: none; color: white;" href="#shopnow">📦 Order Delivery</a></button></div></div>
-  <div class="dots"><div class="dot active" onclick="go(0)"></div><div class="dot" onclick="go(1)"></div><div class="dot" onclick="go(2)"></div></div>
-</div>
-
-<div class="price-box"><h3 style="text-align:center">Charging Price Table N200 - N2,800</h3><div class="row"><span>🔋 Lamp</span><span class="tag">N200</span></div><div class="row"><span>🔋 Touch Light</span><span class="tag">N200</span></div><div class="row"><span>🔋 Bluetooth speaker</span><span class="tag">N200</span></div><div class="row"><span>🔋 phone</span><span class="tag">N200</span></div><div class="row"><span>🔋 Laptop</span><span class="tag">N200</span></div><div class="row"><span>🔋 Power Bank 5,000mAh</span><span class="tag">N200</span></div><div class="row"><span>🔋 Power Bank 10,000mAh</span><span class="tag">N400</span></div><div class="row"><span>🔋 Power Bank 20,000mAh</span><span class="tag">N800</span></div><div class="row"><span>🔋 Power Bank 30,000mAh</span><span class="tag">N1,200</span></div><div class="row"><span>🔋 Power Bank 40,000mAh</span><span class="tag">N1,600</span></div><div class="row"><span>🔋 Power Bank 50,000mAh</span><span class="tag">N2,000</span></div><div class="row"><span>🔋 Power Bank 60,000mAh</span><span class="tag">N2,400</span></div><div class="row"><span>🔋 Power Bank 70,000mAh</span><span class="tag">N2,800</span></div></div>
-
-<div class="price-box"><h3 style="text-align:center">Snacks and Drinks Price</h3><div class="row"><span>🥤 Chin-Chin</span><span class="tag">N200-N5,000</span></div><div class="row"><span>🥤 Plantain Chips</span><span class="tag">N200-N5,000</span></div><div class="row"><span>🥤 Kuli Kuli</span><span class="tag">N200-N5,000</span></div><div class="row"><span>💦 Sachet Water</span><span class="tag">3 for N100</span></div><div class="row"><span>🧴 Table Water</span><span class="tag">N200</span></div><div class="row"><span>🥤 American Cola</span><span class="tag">N400</span></div></div>
-
-<div style="background-color: #fff; box-shadow: 150px; border-radius: 35px; margin: 20px; padding: 30px;"><div class="cc-carousel" id="cc-carousel"><div class="cc-track" id="cc-track"><div class="cc-slide"><img src="./images/combined.jpeg"></div><div class="cc-slide"><img src="./images/logoos.jpeg"></div><div class="cc-slide"><img src="./images/plain.jpeg"></div><div class="cc-slide"><img src="./images/powerbank.jpeg"></div><div class="cc-slide"><img src="./images/withdrawal.jpeg"></div></div><button class="cc-btn cc-prev" onclick="ccMove(-1)">❮</button><button class="cc-btn cc-next" onclick="ccMove(1)">❯</button><div class="cc-dots" id="cc-dots"></div></div><style>.cc-carousel{position:relative;width:100%;max-width:500px;height:300px;overflow:hidden;border-radius:16px;margin:16px auto;isolation:isolate}.cc-track{display:flex;transition:transform 0.6s ease;height:100%}.cc-slide{min-width:100%;height:100%}.cc-slide img{width:100%;height:100%;display:block}.cc-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.8);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;z-index:2}.cc-prev{left:10px}.cc-next{right:10px}.cc-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2}.cc-dot{width:8px;height:8px;background:rgba(255,255,255,0.5);border-radius:50%;cursor:pointer}.cc-dot.cc-active{background:#fff;width:20px}</style><script>(function(){let ccIndex=0;const ccTrack=document.getElementById('cc-track');const ccTotal=5;const ccDotsBox=document.getElementById('cc-dots');for(let i=0;i<ccTotal;i++){const d=document.createElement('div');d.className='cc-dot'+(i===0?' cc-active':'');d.onclick=()=>{ccIndex=i;ccUpdate()};ccDotsBox.appendChild(d);}const ccDots=document.querySelectorAll('.cc-dot');window.ccUpdate=function(){ccTrack.style.transform=`translateX(-${ccIndex*100}%)`;ccDots.forEach((d,i)=>d.classList.toggle('cc-active',i===ccIndex));};window.ccMove=function(dir){ccIndex=(ccIndex+dir+ccTotal)%ccTotal;ccUpdate();};setInterval(()=>ccMove(1),10000);})();</script></div>
-
-<div class="jm-overlay" id="jm-overlay" onclick="jmClose()"></div>
-<div class="jm-drawer" id="jm-drawer">
-  <div class="jm-drawer-top"><b>Cart (<span id="jm-count2">0</span>)</b><span onclick="jmClose()" style="cursor:pointer;font-size:22px">✕</span></div>
-  <div id="jm-list"></div>
-  <div style="padding:16px;background:#fff;border-top:1px solid #eee">
-    <div class="jm-sum-row"><span>Subtotal</span><b>N<span id="jm-sub">0</span></b></div>
-    <div class="jm-sum-row total"><span>TOTAL</span><b>N<span id="jm-total">0</span></b></div>
-    <!-- UPDATED TO BUSINESS ACCOUNT 6593488912 -->
-    <div style="background:#f0f4ff;border:1px dashed #002080;border-radius:10px;padding:12px;margin-top:12px;font-size:13px;line-height:1.6">
-      <b style="color:#002080">💳 PAY TO OPay BUSINESS:</b><br>
-      Business No: <b style="font-size:16px">6593488912</b><br>
-      Backup Personal: <b>9016791320</b><br>
-      Name: <b>TOHEEB ADEBAYO ADEBISI</b><br>
-      <div style="display:flex;gap:8px;margin-top:8px">
-        <button onclick="navigator.clipboard.writeText('6593488912');alert('Copied Business: 6593488912')" style="flex:1;background:#002080;color:#fff;border:none;padding:8px;border-radius:20px;cursor:pointer;font-weight:800">Copy 6593488912</button>
-        <button onclick="navigator.clipboard.writeText('9016791320');alert('Copied Personal: 9016791320')" style="flex:1;background:#FFD60A;color:#002080;border:none;padding:8px;border-radius:20px;cursor:pointer;font-weight:800">Copy 9016791320</button>
+    <div class="hero-slider" id="slider">
+      <div
+        class="slide active"
+        style="background: linear-gradient(90deg, #111 40%, #ffd60a)"
+      >
+        <img src="./images/avaterc.jpeg" alt="avaterc" style="height: 400px" />
+        <div class="slide-text">
+          <span class="badge">Power Boost 🤍</span>
+          <h2>Power Up<br />With Fastest<br />Charger!</h2>
+          <p style="font-size: 12px; margin: 8px 0">
+            Same guy in Real Madrid white jersey serving brothers at IVC Camp!
+          </p>
+          <button class="btn">
+            <a style="text-decoration: none; color: black" href="#shopnow"
+              >⚡ Charge Now</a
+            >
+          </button>
+        </div>
+      </div>
+      <div
+        class="slide"
+        style="background: linear-gradient(90deg, #222 40%, #ffd60a)"
+      >
+        <img src="./images/avater.jpg" alt="avater" />
+        <div class="slide-text">
+          <span class="badge">IVC CAMP • 24/7</span>
+          <div style="display: flex; flex-direction: column; gap: 2rem">
+            <h2>Only Brothers<br />Chill Spot</h2>
+            <p style="font-size: 12px; margin: 8px 0">
+              Phone charging, cold drinks, chin-chin, plantain chips, crunchy
+              Kuli Kuli
+            </p>
+          </div>
+          <button class="btn">
+            <a style="text-decoration: none; color: black" href="#chargenow"
+              >🛒 Shop Now</a
+            >
+          </button>
+        </div>
+      </div>
+      <div
+        class="slide"
+        style="background: linear-gradient(90deg, #ffd60a 40%, #111)"
+      >
+        <img src="./images/ceo.jpeg" alt="ceo" style="height: 400px" />
+        <div class="slide-text" style="color: #111">
+          <span class="badge" style="background: #111; color: #ffd60a"
+            >Fastest Delivery</span
+          >
+          <h2 style="color: #111">Fastest<br />Delivery To your door step</h2>
+          <p style="font-size: 12px; margin: 8px 0; color: #111">
+            Charge & Chill Mart CEO — we deliver anywhere in camp!
+          </p>
+          <button class="btn" style="background: #111; color: #ffd60a">
+            <a style="text-decoration: none; color: white" href="#shopnow"
+              >📦 Order Delivery</a
+            >
+          </button>
+        </div>
+      </div>
+      <div class="dots">
+        <div class="dot active" onclick="go(0)"></div>
+        <div class="dot" onclick="go(1)"></div>
+        <div class="dot" onclick="go(2)"></div>
       </div>
     </div>
-    <a id="jm-whatsapp" href="#" target="_blank" class="jm-checkout" style="background:#002080;color:#fff">I HAVE PAID - SEND PROOF →</a>
-  </div>
-</div>
 
+    <div class="price-box">
+      <h3 style="text-align: center">Charging Price Table N200 - N2,800</h3>
+      <div class="row"><span>🔋 Lamp</span><span class="tag">N200</span></div>
+      <div class="row">
+        <span>🔋 Touch Light</span><span class="tag">N200</span>
+      </div>
+      <div class="row">
+        <span>🔋 Bluetooth speaker</span><span class="tag">N200</span>
+      </div>
+      <div class="row"><span>🔋 phone</span><span class="tag">N200</span></div>
+      <div class="row"><span>🔋 Laptop</span><span class="tag">N200</span></div>
+      <div class="row">
+        <span>🔋 Power Bank 5,000mAh</span><span class="tag">N200</span>
+      </div>
+      <div class="row">
+        <span>🔋 Power Bank 10,000mAh</span><span class="tag">N400</span>
+      </div>
+      <div class="row">
+        <span>🔋 Power Bank 20,000mAh</span><span class="tag">N800</span>
+      </div>
+      <div class="row">
+        <span>🔋 Power Bank 30,000mAh</span><span class="tag">N1,200</span>
+      </div>
+      <div class="row">
+        <span>🔋 Power Bank 40,000mAh</span><span class="tag">N1,600</span>
+      </div>
+      <div class="row">
+        <span>🔋 Power Bank 50,000mAh</span><span class="tag">N2,000</span>
+      </div>
+      <div class="row">
+        <span>🔋 Power Bank 60,000mAh</span><span class="tag">N2,400</span>
+      </div>
+      <div class="row">
+        <span>🔋 Power Bank 70,000mAh</span><span class="tag">N2,800</span>
+      </div>
+    </div>
 
-<!-- FIRST ADD TO CART SECTION -->
-<div id="chargenow" style="margin:12px;background:#fff;border-radius:14px;padding:10px;box-shadow:0 4px 20px #0001">
-<h3 style="text-align:center;margin:10px 0; padding: 10px; background-color: #0000002d; border-radius: 3rem;">Book Gadget for charging at camp site</h3>
-<div class="jm-grid">
-  <div class="jm-card"><img src="./images/lamp.jpeg"><div class="jm-info"><p>Lamp</p><b>N200</b></div><button onclick="jmAdd(1,'Lamp',200,'./images/lamp.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/touch.jpeg"><div class="jm-info"><p>Touch Light</p><b>N200</b></div><button onclick="jmAdd(2,'Touch Light',200,'./images/touch.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/speaker.jpeg"><div class="jm-info"><p>Bluetooth Speaker</p><b>N200</b></div><button onclick="jmAdd(3,'Bluetooth Speaker',200,'./images/speaker.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/phone.jpeg"><div class="jm-info"><p>Phone Full Charge</p><b>N200</b></div><button onclick="jmAdd(4,'Phone Full Charge',200,'./images/phone.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/laptop.jpeg"><div class="jm-info"><p>Laptop</p><b>N400</b></div><button onclick="jmAdd(5,'Laptop',400,'./images/laptop.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/powerk.jpeg"><div class="jm-info"><p>Power Bank 5k mAh</p><b>N200</b></div><button onclick="jmAdd(6,'Power Bank 5k',200,'./images/powerk.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/power1.jpeg"><div class="jm-info"><p>Power Bank 10k mAh</p><b>N400</b></div><button onclick="jmAdd(7,'Power Bank 10k',400,'./images/power1.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/power2.jpeg"><div class="jm-info"><p>Power Bank 20k mAh</p><b>N800</b></div><button onclick="jmAdd(8,'Power Bank 20k',800,'./images/power2.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/power3.jpeg"><div class="jm-info"><p>Power Bank 30k mAh</p><b>N1,200</b></div><button onclick="jmAdd(9,'Power Bank 30k',1200,'./images/power3.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/power4.jpeg"><div class="jm-info"><p>Power Bank 40k mAh</p><b>N1,600</b></div><button onclick="jmAdd(10,'Power Bank 40k',1600,'./images/power4.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/power5.jpeg"><div class="jm-info"><p>Power Bank 50k mAh</p><b>N2,000</b></div><button onclick="jmAdd(11,'Power Bank 50k',2000,'./images/power5.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/power6.jpeg"><div class="jm-info"><p>Power Bank 60k mAh</p><b>N2,400</b></div><button onclick="jmAdd(12,'Power Bank 60k',2400,'./images/power6.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/power5.jpeg"><div class="jm-info"><p>Power Bank 70k mAh</p><b>N2,800</b></div><button onclick="jmAdd(13,'Power Bank 70k',2800,'./images/power5.jpeg')">ADD TO CART</button></div>
-</div>
-</div>
+    <div class="price-box">
+      <h3 style="text-align: center">Snacks and Drinks Price</h3>
+      <div class="row">
+        <span>🥤 Chin-Chin</span><span class="tag">N200-N5,000</span>
+      </div>
+      <div class="row">
+        <span>🥤 Plantain Chips</span><span class="tag">N200-N5,000</span>
+      </div>
+      <div class="row">
+        <span>🥤 Kuli Kuli</span><span class="tag">N200-N5,000</span>
+      </div>
+      <div class="row">
+        <span>💦 Sachet Water</span><span class="tag">3 for N100</span>
+      </div>
+      <div class="row">
+        <span>🧴 Table Water</span><span class="tag">N200</span>
+      </div>
+      <div class="row">
+        <span>🥤 American Cola</span><span class="tag">N400</span>
+      </div>
+    </div>
 
-<!-- SECOND ADD TO CART SECTION -->
-<div id="shopnow" style="margin:12px;background:#fff;border-radius:14px;padding:10px;box-shadow:0 4px 20px #0001">
-<h3 style="text-align:center;margin:10px 0; padding: 10px; background-color: #0000002d; border-radius: 3rem;">Checkout snacks and Drinks available at camp site</h3>
-<div class="jm-grid">
-  <!-- chin-chin -->
-  <div class="jm-card"><img src="./images/chinchins.jpeg"><div class="jm-info"><p>Crunchy Chin-Chin small</p><b>N200</b></div><button onclick="jmAdd(14,'Crunchy Chin-Chin Small',200,'./images/chinchins.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/chinchins.jpeg"><div class="jm-info"><p>Crunchy Chin-Chin Small Jar</p><b>N500</b></div><button onclick="jmAdd(15,'Crunchy Chin-Chin Small Jar',500,'./images/chinchins.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/chinchins.jpeg"><div class="jm-info"><p>Crunchy Chin-Chin Medium</p><b>N1,000</b></div><button onclick="jmAdd(16,'Crunchy Chin-Chin Medium',1000,'./images/chinchins.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/chinchins.jpeg"><div class="jm-info"><p>Crunchy Chin-Chin Medium Jar</p><b>N1,500</b></div><button onclick="jmAdd(17,'Crunchy Chin-Chin Medium Jar',1500,'./images/chinchins.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/chinchins.jpeg"><div class="jm-info"><p>Crunchy Chin-Chin Bigie</p><b>N2,000</b></div><button onclick="jmAdd(18,'Crunchy Chin-Chin Bigie',2000,'./images/chinchins.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/chinchinp.jpeg"><div class="jm-info"><p>Crunchy Chin-Chin Big Jar</p><b>N3,500</b></div><button onclick="jmAdd(19,'Crunchy Chin-Chin Big Jar',3500,'./images/chinchinp.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/chinchinp.jpeg"><div class="jm-info"><p>Crunchy Chin-Chin Big Jar</p><b>N5,000</b></div><button onclick="jmAdd(20,'Crunchy Chin-Chin Big Jar',5000,'./images/chinchinp.jpeg')">ADD TO CART</button></div>
-  <!-- plantain 2 -->
-  <div class="jm-card"><img src="./images/plantains.jpeg"><div class="jm-info"><p>Crunchy Plantain-Chips small</p><b>N200</b></div><button onclick="jmAdd(21,'Crunchy Chin-Chin Small',200,'./images/plantains.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/plantains.jpeg"><div class="jm-info"><p>Crunchy Plantain-Chips Small Jar</p><b>N500</b></div><button onclick="jmAdd(22,'Crunchy Chin-Chin Small Jar',500,'./images/plantains.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/plantains.jpeg"><div class="jm-info"><p>Crunchy Plantain-Chips Medium</p><b>N1,000</b></div><button onclick="jmAdd(23,'Crunchy Chin-Chin Medium',1000,'./images/plantains.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/plantains.jpeg"><div class="jm-info"><p>Crunchy Plantain-Chips Medium Jar</p><b>N1,500</b></div><button onclick="jmAdd(24,'Crunchy Chin-Chin Medium Jar',1500,'./images/plantains.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/plantains.jpeg"><div class="jm-info"><p>Crunchy Plantain-Chips Bigie</p><b>N2,000</b></div><button onclick="jmAdd(25,'Crunchy Chin-Chin Bigie',2000,'./images/plantains.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/plantainp.jpeg"><div class="jm-info"><p>Crunchy Plantain-Chips Big Jar</p><b>N3,500</b></div><button onclick="jmAdd(26,'Crunchy Chin-Chin Big Jar',3500,'./images/plantainp.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/plantainp.jpeg"><div class="jm-info"><p>Crunchy Plantain-Chips Big Jar</p><b>N5,000</b></div><button onclick="jmAdd(27,'Crunchy Chin-Chin Big Jar',5000,'./images/plantainp.jpeg')">ADD TO CART</button></div>
-<!-- drinks -->
-  <div class="jm-card"><img src="./images/malt.jpeg"><div class="jm-info"><p>Malt</p><b>N600</b></div><button onclick="jmAdd(28,'Malt',600,'./images/malt.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/sachetwater.jpeg"><div class="jm-info"><p>3 Sachet Water</p><b>N100</b></div><button onclick="jmAdd(29,'3 Sachet Water',100,'./images/sachetwater.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/bottlewater.jpeg"><div class="jm-info"><p>Table Water</p><b>N200</b></div><button onclick="jmAdd(30,'Table Water',200,'./images/bottlewater.jpeg')">ADD TO CART</button></div>
-  <div class="jm-card"><img src="./images/americancola.jpeg"><div class="jm-info"><p>American Cola</p><b>N400</b></div><button onclick="jmAdd(31,'American Cola',400,'./images/americancola.jpeg')">ADD TO CART</button></div>
-</div>
-</div>
+    <div
+      style="
+        background-color: #fff;
+        box-shadow: 150px;
+        border-radius: 35px;
+        margin: 20px;
+        padding: 30px;
+      "
+    >
+      <div class="cc-carousel" id="cc-carousel">
+        <div class="cc-track" id="cc-track">
+          <div class="cc-slide"><img src="./images/combined.jpeg" /></div>
+          <div class="cc-slide"><img src="./images/logoos.jpeg" /></div>
+          <div class="cc-slide"><img src="./images/plain.jpeg" /></div>
+          <div class="cc-slide"><img src="./images/powerbank.jpeg" /></div>
+          <div class="cc-slide"><img src="./images/withdrawal.jpeg" /></div>
+        </div>
+        <button class="cc-btn cc-prev" onclick="ccMove(-1)">❮</button
+        ><button class="cc-btn cc-next" onclick="ccMove(1)">❯</button>
+        <div class="cc-dots" id="cc-dots"></div>
+      </div>
+      <style>
+        .cc-carousel {
+          position: relative;
+          width: 100%;
+          max-width: 500px;
+          height: 300px;
+          overflow: hidden;
+          border-radius: 16px;
+          margin: 16px auto;
+          isolation: isolate;
+        }
+        .cc-track {
+          display: flex;
+          transition: transform 0.6s ease;
+          height: 100%;
+        }
+        .cc-slide {
+          min-width: 100%;
+          height: 100%;
+        }
+        .cc-slide img {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+        .cc-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(255, 255, 255, 0.8);
+          border: none;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 18px;
+          z-index: 2;
+        }
+        .cc-prev {
+          left: 10px;
+        }
+        .cc-next {
+          right: 10px;
+        }
+        .cc-dots {
+          position: absolute;
+          bottom: 12px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 6px;
+          z-index: 2;
+        }
+        .cc-dot {
+          width: 8px;
+          height: 8px;
+          background: rgba(255, 255, 255, 0.5);
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        .cc-dot.cc-active {
+          background: #fff;
+          width: 20px;
+        }
+      </style>
+      <script>
+        (function () {
+          let ccIndex = 0;
+          const ccTrack = document.getElementById("cc-track");
+          const ccTotal = 5;
+          const ccDotsBox = document.getElementById("cc-dots");
+          for (let i = 0; i < ccTotal; i++) {
+            const d = document.createElement("div");
+            d.className = "cc-dot" + (i === 0 ? " cc-active" : "");
+            d.onclick = () => {
+              ccIndex = i;
+              ccUpdate();
+            };
+            ccDotsBox.appendChild(d);
+          }
+          const ccDots = document.querySelectorAll(".cc-dot");
+          window.ccUpdate = function () {
+            ccTrack.style.transform = `translateX(-${ccIndex * 100}%)`;
+            ccDots.forEach((d, i) =>
+              d.classList.toggle("cc-active", i === ccIndex),
+            );
+          };
+          window.ccMove = function (dir) {
+            ccIndex = (ccIndex + dir + ccTotal) % ccTotal;
+            ccUpdate();
+          };
+          setInterval(() => ccMove(1), 10000);
+        })();
+      </script>
+    </div>
 
+    <div class="jm-overlay" id="jm-overlay" onclick="jmClose()"></div>
+    <div class="jm-drawer" id="jm-drawer">
+      <div class="jm-drawer-top">
+        <b>Cart (<span id="jm-count2">0</span>)</b
+        ><span onclick="jmClose()" style="cursor: pointer; font-size: 22px"
+          >✕</span
+        >
+      </div>
+      <div id="jm-list"></div>
+      <div style="padding: 16px; background: #fff; border-top: 1px solid #eee">
+        <div class="jm-sum-row">
+          <span>Subtotal</span><b>N<span id="jm-sub">0</span></b>
+        </div>
+        <div class="jm-sum-row total">
+          <span>TOTAL</span><b>N<span id="jm-total">0</span></b>
+        </div>
+        <!-- UPDATED TO BUSINESS ACCOUNT 6593488912 -->
+        <div
+          style="
+            background: #f0f4ff;
+            border: 1px dashed #002080;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.6;
+          "
+        >
+          <b style="color: #002080">💳 PAY TO OPay BUSINESS:</b><br />
+          Business No: <b style="font-size: 16px">6593488912</b><br />
+          Backup Personal: <b>9016791320</b><br />
+          Name: <b>TOHEEB ADEBAYO ADEBISI</b><br />
+          <div style="display: flex; gap: 8px; margin-top: 8px">
+            <button
+              onclick="
+                navigator.clipboard.writeText('6593488912');
+                alert('Copied Business: 6593488912');
+              "
+              style="
+                flex: 1;
+                background: #002080;
+                color: #fff;
+                border: none;
+                padding: 8px;
+                border-radius: 20px;
+                cursor: pointer;
+                font-weight: 800;
+              "
+            >
+              Copy 6593488912
+            </button>
+            <button
+              onclick="
+                navigator.clipboard.writeText('9016791320');
+                alert('Copied Personal: 9016791320');
+              "
+              style="
+                flex: 1;
+                background: #ffd60a;
+                color: #002080;
+                border: none;
+                padding: 8px;
+                border-radius: 20px;
+                cursor: pointer;
+                font-weight: 800;
+              "
+            >
+              Copy 9016791320
+            </button>
+          </div>
+        </div>
+        <a
+          id="jm-whatsapp"
+          href="#"
+          target="_blank"
+          class="jm-checkout"
+          style="background: #002080; color: #fff"
+          >I HAVE PAID - SEND PROOF →</a
+        >
+      </div>
+    </div>
 
+    <!-- FIRST ADD TO CART SECTION -->
+    <div
+      id="chargenow"
+      style="
+        margin: 12px;
+        background: #fff;
+        border-radius: 14px;
+        padding: 10px;
+        box-shadow: 0 4px 20px #0001;
+      "
+    >
+      <h3
+        style="
+          text-align: center;
+          margin: 10px 0;
+          padding: 10px;
+          background-color: #0000002d;
+          border-radius: 3rem;
+        "
+      >
+        Book Gadget for charging at camp site
+      </h3>
+      <div class="jm-grid">
+        <div class="jm-card">
+          <img src="./images/lamp.jpeg" />
+          <div class="jm-info">
+            <p>Lamp</p>
+            <b>N200</b>
+          </div>
+          <button onclick="jmAdd(1, 'Lamp', 200, './images/lamp.jpeg')">
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/touch.jpeg" />
+          <div class="jm-info">
+            <p>Touch Light</p>
+            <b>N200</b>
+          </div>
+          <button onclick="jmAdd(2, 'Touch Light', 200, './images/touch.jpeg')">
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/speaker.jpeg" />
+          <div class="jm-info">
+            <p>Bluetooth Speaker</p>
+            <b>N200</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(3, 'Bluetooth Speaker', 200, './images/speaker.jpeg')
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/phone.jpeg" />
+          <div class="jm-info">
+            <p>Phone Full Charge</p>
+            <b>N200</b>
+          </div>
+          <button
+            onclick="jmAdd(4, 'Phone Full Charge', 200, './images/phone.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/laptop.jpeg" />
+          <div class="jm-info">
+            <p>Laptop</p>
+            <b>N400</b>
+          </div>
+          <button onclick="jmAdd(5, 'Laptop', 400, './images/laptop.jpeg')">
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/powerk.jpeg" />
+          <div class="jm-info">
+            <p>Power Bank 5k mAh</p>
+            <b>N200</b>
+          </div>
+          <button
+            onclick="jmAdd(6, 'Power Bank 5k', 200, './images/powerk.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/power1.jpeg" />
+          <div class="jm-info">
+            <p>Power Bank 10k mAh</p>
+            <b>N400</b>
+          </div>
+          <button
+            onclick="jmAdd(7, 'Power Bank 10k', 400, './images/power1.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/power2.jpeg" />
+          <div class="jm-info">
+            <p>Power Bank 20k mAh</p>
+            <b>N800</b>
+          </div>
+          <button
+            onclick="jmAdd(8, 'Power Bank 20k', 800, './images/power2.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/power3.jpeg" />
+          <div class="jm-info">
+            <p>Power Bank 30k mAh</p>
+            <b>N1,200</b>
+          </div>
+          <button
+            onclick="jmAdd(9, 'Power Bank 30k', 1200, './images/power3.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/power4.jpeg" />
+          <div class="jm-info">
+            <p>Power Bank 40k mAh</p>
+            <b>N1,600</b>
+          </div>
+          <button
+            onclick="jmAdd(10, 'Power Bank 40k', 1600, './images/power4.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/power5.jpeg" />
+          <div class="jm-info">
+            <p>Power Bank 50k mAh</p>
+            <b>N2,000</b>
+          </div>
+          <button
+            onclick="jmAdd(11, 'Power Bank 50k', 2000, './images/power5.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/power6.jpeg" />
+          <div class="jm-info">
+            <p>Power Bank 60k mAh</p>
+            <b>N2,400</b>
+          </div>
+          <button
+            onclick="jmAdd(12, 'Power Bank 60k', 2400, './images/power6.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/power5.jpeg" />
+          <div class="jm-info">
+            <p>Power Bank 70k mAh</p>
+            <b>N2,800</b>
+          </div>
+          <button
+            onclick="jmAdd(13, 'Power Bank 70k', 2800, './images/power5.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+      </div>
+    </div>
 
+    <!-- SECOND ADD TO CART SECTION -->
+    <div
+      id="shopnow"
+      style="
+        margin: 12px;
+        background: #fff;
+        border-radius: 14px;
+        padding: 10px;
+        box-shadow: 0 4px 20px #0001;
+      "
+    >
+      <h3
+        style="
+          text-align: center;
+          margin: 10px 0;
+          padding: 10px;
+          background-color: #0000002d;
+          border-radius: 3rem;
+        "
+      >
+        Checkout snacks and Drinks available at camp site
+      </h3>
+      <div class="jm-grid">
+        <!-- chin-chin -->
+        <div class="jm-card">
+          <img src="./images/chinchins.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Chin-Chin small</p>
+            <b>N200</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                14,
+                'Crunchy Chin-Chin Small',
+                200,
+                './images/chinchins.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/chinchins.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Chin-Chin Small Jar</p>
+            <b>N500</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                15,
+                'Crunchy Chin-Chin Small Jar',
+                500,
+                './images/chinchins.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/chinchins.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Chin-Chin Medium</p>
+            <b>N1,000</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                16,
+                'Crunchy Chin-Chin Medium',
+                1000,
+                './images/chinchins.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/chinchins.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Chin-Chin Medium Jar</p>
+            <b>N1,500</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                17,
+                'Crunchy Chin-Chin Medium Jar',
+                1500,
+                './images/chinchins.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/chinchins.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Chin-Chin Bigie</p>
+            <b>N2,000</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                18,
+                'Crunchy Chin-Chin Bigie',
+                2000,
+                './images/chinchins.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/chinchinp.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Chin-Chin Big Jar</p>
+            <b>N3,500</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                19,
+                'Crunchy Chin-Chin Big Jar',
+                3500,
+                './images/chinchinp.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/chinchinp.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Chin-Chin Big Jar</p>
+            <b>N5,000</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                20,
+                'Crunchy Chin-Chin Big Jar',
+                5000,
+                './images/chinchinp.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <!-- plantain 2 -->
+        <div class="jm-card">
+          <img src="./images/plantains.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Plantain-Chips small</p>
+            <b>N200</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                21,
+                'Crunchy Chin-Chin Small',
+                200,
+                './images/plantains.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/plantains.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Plantain-Chips Small Jar</p>
+            <b>N500</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                22,
+                'Crunchy Chin-Chin Small Jar',
+                500,
+                './images/plantains.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/plantains.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Plantain-Chips Medium</p>
+            <b>N1,000</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                23,
+                'Crunchy Chin-Chin Medium',
+                1000,
+                './images/plantains.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/plantains.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Plantain-Chips Medium Jar</p>
+            <b>N1,500</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                24,
+                'Crunchy Chin-Chin Medium Jar',
+                1500,
+                './images/plantains.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/plantains.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Plantain-Chips Bigie</p>
+            <b>N2,000</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                25,
+                'Crunchy Chin-Chin Bigie',
+                2000,
+                './images/plantains.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/plantainp.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Plantain-Chips Big Jar</p>
+            <b>N3,500</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                26,
+                'Crunchy Chin-Chin Big Jar',
+                3500,
+                './images/plantainp.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/plantainp.jpeg" />
+          <div class="jm-info">
+            <p>Crunchy Plantain-Chips Big Jar</p>
+            <b>N5,000</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(
+                27,
+                'Crunchy Chin-Chin Big Jar',
+                5000,
+                './images/plantainp.jpeg',
+              )
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <!-- drinks -->
+        <div class="jm-card">
+          <img src="./images/malt.jpeg" />
+          <div class="jm-info">
+            <p>Malt</p>
+            <b>N600</b>
+          </div>
+          <button onclick="jmAdd(28, 'Malt', 600, './images/malt.jpeg')">
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/sachetwater.jpeg" />
+          <div class="jm-info">
+            <p>3 Sachet Water</p>
+            <b>N100</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(29, '3 Sachet Water', 100, './images/sachetwater.jpeg')
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/bottlewater.jpeg" />
+          <div class="jm-info">
+            <p>Table Water</p>
+            <b>N200</b>
+          </div>
+          <button
+            onclick="jmAdd(30, 'Table Water', 200, './images/bottlewater.jpeg')"
+          >
+            ADD TO CART
+          </button>
+        </div>
+        <div class="jm-card">
+          <img src="./images/americancola.jpeg" />
+          <div class="jm-info">
+            <p>American Cola</p>
+            <b>N400</b>
+          </div>
+          <button
+            onclick="
+              jmAdd(31, 'American Cola', 400, './images/americancola.jpeg')
+            "
+          >
+            ADD TO CART
+          </button>
+        </div>
+      </div>
+    </div>
 
-<footer style="background:#0A0A0A;color:#FFD60A;text-align:center;padding:12px 0 20px;font-size:10px">CHARGE & CHILL MART • Business No: 6593488912 • Personal: 9016791320 • TOHEEB ADEBAYO ADEBISI • OPay</footer>
+    <footer
+      style="
+        background: #0a0a0a;
+        color: #ffd60a;
+        text-align: center;
+        padding: 12px 0 20px;
+        font-size: 10px;
+      "
+    >
+      CHARGE & CHILL MART • Business No: 6593488912 • Personal: 9016791320 •
+      TOHEEB ADEBAYO ADEBISI • OPay
+    </footer>
 
-<script>
-let cur=0; const slides=document.querySelectorAll('.slide'); const dots=document.querySelectorAll('.dot');
-function go(i){ slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); cur=i; slides[cur].classList.add('active'); dots[cur].classList.add('active');}
-setInterval(()=>{ go((cur+1)%slides.length); },10000);
-function orderWA(m){ window.open(`https://wa.me/2349016791320?text=${encodeURIComponent('Hi Charge & Chill Mart! '+m)}`,'_blank');}
-let jmCart = JSON.parse(localStorage.getItem('jmCart')||'[]');
-function jmAdd(id,name,price,img){let f=jmCart.find(x=>x.id===id);if(f){f.qty++}else{jmCart.push({id,name,price,img,qty:1})}jmSave();jmOpen();}
-function jmInc(id){let f=jmCart.find(x=>x.id===id);f.qty++;jmSave()}
-function jmDec(id){let f=jmCart.find(x=>x.id===id);if(f.qty>1){f.qty--}else{jmCart=jmCart.filter(x=>x.id!==id)}jmSave()}
-function jmDel(id){jmCart=jmCart.filter(x=>x.id!==id);jmSave()}
-function jmSave(){localStorage.setItem('jmCart',JSON.stringify(jmCart));jmRender()}
-function jmRender(){
-  let count=jmCart.reduce((s,x)=>s+x.qty,0);let total=jmCart.reduce((s,x)=>s+x.price*x.qty,0);
-  document.getElementById('jm-count').innerText=count;document.getElementById('jm-count2').innerText=count;
-  document.getElementById('jm-sub').innerText=total;document.getElementById('jm-total').innerText=total;
-  document.getElementById('jm-list').innerHTML=jmCart.map(x=>`<div class="jm-row"><img src="${x.img}"><div class="jm-row-info"><p>${x.name}</p><b style="color:#002080">N${x.price}</b><div class="jm-qty"><button onclick="jmDec(${x.id})">-</button><span>${x.qty}</span><button onclick="jmInc(${x.id})">+</button><span onclick="jmDel(${x.id})" style="color:red;margin-left:10px;cursor:pointer;font-size:12px">Remove</span></div></div></div>`).join('')||'<p style="text-align:center;color:#888;padding:40px">Your cart is empty 🛒</p>';
-  let lines=jmCart.map((x,i)=>`${i+1}. ${x.name} x${x.qty} = N${x.price*x.qty}`).join('\n');
-  let rawMsg=`*NEW ORDER - CHARGE & CHILL*\n\n${lines}\n\n*TOTAL: N${total}*\n\nI have paid to OPay Business 6593488912 (TOHEEB ADEBAYO ADEBISI). Backup 9016791320. Here is my proof.`;
-  document.getElementById('jm-whatsapp').href=`https://wa.me/2349016791320?text=${encodeURIComponent(rawMsg)}`;
-}
-function jmOpen(){document.getElementById('jm-drawer').classList.add('open');document.getElementById('jm-overlay').classList.add('show')}
-function jmClose(){document.getElementById('jm-drawer').classList.remove('open');document.getElementById('jm-overlay').classList.remove('show')}
-jmRender();
-</script>
+    <script>
+      let cur = 0;
+      const slides = document.querySelectorAll(".slide");
+      const dots = document.querySelectorAll(".dot");
+      function go(i) {
+        slides[cur].classList.remove("active");
+        dots[cur].classList.remove("active");
+        cur = i;
+        slides[cur].classList.add("active");
+        dots[cur].classList.add("active");
+      }
+      setInterval(() => {
+        go((cur + 1) % slides.length);
+      }, 10000);
+      function orderWA(m) {
+        window.open(
+          `https://wa.me/2349016791320?text=${encodeURIComponent("Hi Charge & Chill Mart! " + m)}`,
+          "_blank",
+        );
+      }
+      let jmCart = JSON.parse(localStorage.getItem("jmCart") || "[]");
+      function jmAdd(id, name, price, img) {
+        let f = jmCart.find((x) => x.id === id);
+        if (f) {
+          f.qty++;
+        } else {
+          jmCart.push({ id, name, price, img, qty: 1 });
+        }
+        jmSave();
+        jmOpen();
+      }
+      function jmInc(id) {
+        let f = jmCart.find((x) => x.id === id);
+        f.qty++;
+        jmSave();
+      }
+      function jmDec(id) {
+        let f = jmCart.find((x) => x.id === id);
+        if (f.qty > 1) {
+          f.qty--;
+        } else {
+          jmCart = jmCart.filter((x) => x.id !== id);
+        }
+        jmSave();
+      }
+      function jmDel(id) {
+        jmCart = jmCart.filter((x) => x.id !== id);
+        jmSave();
+      }
+      function jmSave() {
+        localStorage.setItem("jmCart", JSON.stringify(jmCart));
+        jmRender();
+      }
+      function jmRender() {
+        let count = jmCart.reduce((s, x) => s + x.qty, 0);
+        let total = jmCart.reduce((s, x) => s + x.price * x.qty, 0);
+        document.getElementById("jm-count").innerText = count;
+        document.getElementById("jm-count2").innerText = count;
+        document.getElementById("jm-sub").innerText = total;
+        document.getElementById("jm-total").innerText = total;
+        document.getElementById("jm-list").innerHTML =
+          jmCart
+            .map(
+              (x) =>
+                `<div class="jm-row"><img src="${x.img}"><div class="jm-row-info"><p>${x.name}</p><b style="color:#002080">N${x.price}</b><div class="jm-qty"><button onclick="jmDec(${x.id})">-</button><span>${x.qty}</span><button onclick="jmInc(${x.id})">+</button><span onclick="jmDel(${x.id})" style="color:red;margin-left:10px;cursor:pointer;font-size:12px">Remove</span></div></div></div>`,
+            )
+            .join("") ||
+          '<p style="text-align:center;color:#888;padding:40px">Your cart is empty 🛒</p>';
+        let lines = jmCart
+          .map((x, i) => `${i + 1}. ${x.name} x${x.qty} = N${x.price * x.qty}`)
+          .join("\n");
+        let rawMsg = `*NEW ORDER - CHARGE & CHILL*\n\n${lines}\n\n*TOTAL: N${total}*\n\nI have paid to OPay Business 6593488912 (TOHEEB ADEBAYO ADEBISI). Backup 9016791320. Here is my proof.`;
+        document.getElementById("jm-whatsapp").href =
+          `https://wa.me/2349016791320?text=${encodeURIComponent(rawMsg)}`;
+      }
+      function jmOpen() {
+        document.getElementById("jm-drawer").classList.add("open");
+        document.getElementById("jm-overlay").classList.add("show");
+      }
+      function jmClose() {
+        document.getElementById("jm-drawer").classList.remove("open");
+        document.getElementById("jm-overlay").classList.remove("show");
+      }
+      jmRender();
+    </script>
 
-<div id="autoPopup" class="auto-modal"><div class="auto-box"><span class="auto-close" onclick="closeAutoPopup()">&times;</span><video src="./video/bayo.mp4" controls style="width:300px;height:300px;"></video><div style="padding:16px;text-align:center"><h2 style="margin:0;color:#002080">⚡ STILL NEED LIGHT?</h2><p style="margin:8px 0">We are still OPEN 24HRS!</p><div style="background:#FFD60A;border-radius:8px;padding:8px;margin:8px 0;font-weight:900">Phone: N200 | 10k mAh: N400 | 50k mAh: N2000</div><a href="https://wa.me/2349016791320?text=Hi%20Charge%20%26%20Chill,%20I%20want%20to%20charge%20my%20power%20bank" style="display:block;background:#002080;color:#FFD60A;padding:12px;border-radius:24px;text-decoration:none;font-weight:800;margin-top:8px">Chat on WhatsApp Now</a></div></div></div>
-<style>.auto-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;padding:16px}.auto-modal.show{display:flex;animation:fadeIn 0.3s}.auto-box{background:#fff;width:100%;max-width:360px;border-radius:16px;overflow:hidden;position:relative;animation:popUp 0.4s;border:3px solid #FFD60A}.auto-close{position:absolute;top:6px;right:10px;font-size:28px;color:#fff;background:rgba(0,0,0,0.6);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes popUp{from{transform:scale(0.7)}to{transform:scale(1)}}</style>
-<script>function showAutoPopup(){document.getElementById('autoPopup').classList.add('show');}function closeAutoPopup(){document.getElementById('autoPopup').classList.remove('show');}setTimeout(showAutoPopup,10000);setInterval(showAutoPopup,600000);document.getElementById('autoPopup').addEventListener('click',function(e){if(e.target.id==='autoPopup')closeAutoPopup();});</script>
-</body>
+    <div id="autoPopup" class="auto-modal">
+      <div class="auto-box">
+        <span class="auto-close" onclick="closeAutoPopup()">&times;</span
+        ><video
+          src="./video/bayo.mp4"
+          controls
+          style="width: 300px; height: 300px"
+        ></video>
+        <div style="padding: 16px; text-align: center">
+          <h2 style="margin: 0; color: #002080">⚡ STILL NEED LIGHT?</h2>
+          <p style="margin: 8px 0">We are still OPEN 24HRS!</p>
+          <div
+            style="
+              background: #ffd60a;
+              border-radius: 8px;
+              padding: 8px;
+              margin: 8px 0;
+              font-weight: 900;
+            "
+          >
+            Phone: N200 | 10k mAh: N400 | 50k mAh: N2000
+          </div>
+          <a
+            href="https://wa.me/2349016791320?text=Hi%20Charge%20%26%20Chill,%20I%20want%20to%20charge%20my%20power%20bank"
+            style="
+              display: block;
+              background: #002080;
+              color: #ffd60a;
+              padding: 12px;
+              border-radius: 24px;
+              text-decoration: none;
+              font-weight: 800;
+              margin-top: 8px;
+            "
+            >Chat on WhatsApp Now</a
+          >
+        </div>
+      </div>
+    </div>
+    <style>
+      .auto-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 99999;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .auto-modal.show {
+        display: flex;
+        animation: fadeIn 0.3s;
+      }
+      .auto-box {
+        background: #fff;
+        width: 100%;
+        max-width: 360px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        animation: popUp 0.4s;
+        border: 3px solid #ffd60a;
+      }
+      .auto-close {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        font-size: 28px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.6);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes popUp {
+        from {
+          transform: scale(0.7);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+    </style>
+    <script>
+      function showAutoPopup() {
+        document.getElementById("autoPopup").classList.add("show");
+      }
+      function closeAutoPopup() {
+        document.getElementById("autoPopup").classList.remove("show");
+      }
+      setTimeout(showAutoPopup, 10000);
+      setInterval(showAutoPopup, 600000);
+      document
+        .getElementById("autoPopup")
+        .addEventListener("click", function (e) {
+          if (e.target.id === "autoPopup") closeAutoPopup();
+        });
+    </script>
+  </body>
 </html>
